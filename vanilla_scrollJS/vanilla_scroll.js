@@ -47,6 +47,7 @@ window.addEventListener('DOMContentLoaded', function() {
   var timer;
   //smoothScroll関数, elementが取得先, beginが初期値, changeが変化量
   function smoothScroll(element, begin, change) {
+    clearInterval(timer);//断続クリックエスケープのための初期化Restart
     var start = Date.now();
     timer = window.setInterval(function() {
       var time = (Date.now() - start) / (speed * (tgOffsetY / (tgOffsetY / 3))),
@@ -71,12 +72,13 @@ window.addEventListener('DOMContentLoaded', function() {
     i = 0;
   while (i < elemArr) {
     a[i].onclick = function(event) {
+
       var elem = this,
         aHref = this.getAttribute('href'), //hrefを取得
         aCheck = aHref.search(/^#.+/); //先頭に#を含む場合は0を返す
       if (aCheck === 0) { //先頭に#を含む時の処理
-        tgGet(aHref, window.pageYOffset);
         event.preventDefault();
+        tgGet(aHref, window.pageYOffset);
         stopScroll();
       } else { //先頭に#を含まない時の処理
         var hrefSplit = aHref.split(/#/),
