@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+	<meta charset="UTF-8">
+	<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.18.1/build/cssreset/cssreset-min.css">
+	<link rel="stylesheet" href="common.css">
+</head>
+
+<body>
+	<header class="l-header">
+		<div class="top-menu clearfix">
+			<h1 class="top-menu__heading">メニュー<small>menu</small></h1>
+			<div class="hamb toggleBtn"><span></span></div>
+		</div>
+		<nav>
+			<ul class="menu slideMenu">
+				<li class="menu__list">
+					<div class="toggleBtn"><a href="#" class="menu__item">listA</a></div>
+					<div class="slideMenu">
+						<ul>
+							<li class="menu__list"><a class="menu__item" href="#">listA__listA</a></li>
+							<li class="menu__list">
+								<div class="toggleBtn"><a class="menu__item" href="#">listA__listB</a></div>
+								<div class="slideMenu">
+									<ul>
+										<li class="menu__list"><a href="#" class="menu__item">listA__listB__listA</a></li>
+										<li class="menu__list"><a href="#" class="menu__item">listA__listB__listB</a></li>
+										<li class="menu__list"><a href="#" class="menu__item">listA__listB__listC</a></li>
+										<li class="menu__list">
+											<div class="toggleBtn"><a href="#" class="menu__item">listA__listB__listD</a></div>
+											<div class="slideMenu">
+												<ul>
+														<li class="menu__list"><a href="#" class="menu__item">listA__listB__listD__listA</a></li>
+														<li class="menu__list"><a href="#" class="menu__item">listA__listB__listD__listB</a></li>
+														<li class="menu__list"><a href="#" class="menu__item">listA__listB__listD__listC</a></li>
+												</ul>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li class="menu__list">
+					<div class="toggleBtn"><a class="menu__item" href="#">listB</a></div>
+					<div class="slideMenu">
+						<ul>
+							<li class="menu__list"><a href="#" class="menu__item">listB__listA</a></li>
+							<li class="menu__list"><a href="#" class="menu__item">listB__listB</a></li>
+							<li class="menu__list"><a href="#" class="menu__item">listB__listC</a></li>
+						</ul>
+					</div>
+				</li>
+				<li class="menu__list"><a class="menu__item" href="#">listC</a></li>
+				<li class="menu__list"><a class="menu__item" href="#">listD</a></li>
+				<li class="menu__list"><a class="menu__item" href="#">listE</a></li>
+			</ul>
+		</nav>
+	</header>
+	<main class="l-main">
+		<div class="hero">
+			<div class="l-wrapper hero__wrap">
+				<h1 class="heading hero__heading">独立開閉式<br class="sp-only" />アコーディオントグルメニュー<small>Independent opening and closing accordion toggle</small></h1>
+			</div>
+		</div>
+		<section class="l-section">
+			<div class="l-wrapper">
+				<h2 class="heading heading--l2">クラスのつけた方<small>How to put a class</small></h2>
+				<dl class="list">
+					<dt class="heading heading--l3" class="heading heading--l3">スライドメニューにつけるクラス<small>Class to attach to slide menu</small></dt>
+					<dd class="list__des"><span class="txt-caption txt-caption--B">slideMenu</span></dd>
+				</dl>
+				<dl class="list">
+					<dt class="heading heading--l3">トグルスイッチにつけるクラス<small>Class to attach to toggle switch</small></dt>
+					<dd class="list__des"><span class="txt-caption txt-caption--R">toggleBtn</span></dd>
+				</dl>
+			</div>
+		</section>
+		<section class="l-section">
+			<div class="l-wrapper">
+				<h2 class="heading heading--l2">サンプルコード<small>sample code</small></h2>
+          <dl class="list">
+            <dt class="heading heading--l3">jQueryコード<small>jQuery code</small></dt>
+          <dd>
+            <pre><code>
+$(function() {
+	var options = {
+		bp: 600, // ウィンドウのブレイクポイント
+		toggle_class: 'is-cross', //メニュー開閉時につけたいクラス
+		toggle: $('<span class="txt-caption txt-caption--R">.toggleBtn</span>'), //クリックでメニュー開閉するボタン
+		menu: $('<span class="txt-caption txt-caption--B">.slideMenu</span>') //開閉するメニュー
+	}
+	if ($(window).width() <= options.bp) {
+		$.each(options.toggle, function(i, e) {
+			$(e).on('click', function() {
+				$(this).toggleClass(options.toggle_class);
+				$(options.menu[i]).slideToggle();
+				return false;
+			});
+		});
+	}
+});
+            </code></pre>
+          </dd>
+        </dl>
+				<dl class="list">
+					<dt class="heading heading--l3">HTMLコード<small>HTML code</small></dt>
+					<dd>
+						<pre>
+              <code>
+&lt;header class="l-header"&gt;
+ &lt;div class="top-menu clearfix"&gt;
+  &lt;h1 class="top-menu__heading"&gt;メニュー&lt;small&gt;menu&lt;/small&gt;&lt;/h1&gt;
+  &lt;div class="hamb <span class="txt-caption txt-caption--R">toggleBtn</span>"&gt;&lt;span&gt;&lt;/span&gt;&lt;/div&gt;
+ &lt;/div&gt;
+  &lt;nav&gt;
+   &lt;ul class="menu <span class="txt-caption txt-caption--B">slideMenu</span>"&gt;
+    &lt;li class="menu__list"&gt;
+    &lt;div class="<span class="txt-caption txt-caption--R">toggleBtn</span>"&gt;&lt;a href="#" class="menu__item"&gt;listA&lt;/a&gt;&lt;/div&gt;
+     &lt;div class="<span class="txt-caption txt-caption--B">slideMenu</span>"&gt;
+     &lt;ul&gt;
+       &lt;li class="menu__list"&gt;&lt;a class="menu__item" href="#"&gt;listA__listA&lt;/a&gt;&lt;/li&gt;
+       &lt;li class="menu__list"&gt;
+        &lt;div class="<span class="txt-caption txt-caption--R">toggleBtn</span>"&gt;&lt;a class="menu__item" href="#"&gt;listA__listB&lt;/a&gt;&lt;/div&gt;
+        &lt;div class="<span class="txt-caption txt-caption--B">slideMenu</span>"&gt;
+         &lt;ul&gt;
+          &lt;li class="menu__list"&gt;&lt;a href="#" class="menu__item"&gt;listA__listB__listA&lt;/a&gt;&lt;/li&gt;
+          &lt;li class="menu__list"&gt;&lt;a href="#" class="menu__item"&gt;listA__listB__listB&lt;/a&gt;&lt;/li&gt;
+          &lt;li class="menu__list"&gt;&lt;a href="#" class="menu__item"&gt;listA__listB__listC&lt;/a&gt;&lt;/li&gt;
+          &lt;li class="menu__list"&gt;
+           &lt;div class="<span class="txt-caption txt-caption--R">toggleBtn</span>"&gt;&lt;a href="#" class="menu__item"&gt;listA__listB__listD&lt;/a&gt;&lt;/div&gt;
+           &lt;div class="<span class="txt-caption txt-caption--B">slideMenu</span>"&gt;
+            &lt;ul&gt;
+             &lt;li&gt;
+              &lt;li class="menu__list"&gt;&lt;a href="#" class="menu__item"&gt;listA__listB__listD__listA&lt;/a&gt;&lt;/li&gt;
+              &lt;li class="menu__list"&gt;&lt;a href="#" class="menu__item"&gt;listA__listB__listD__listB&lt;/a&gt;&lt;/li&gt;
+              &lt;li class="menu__list"&gt;&lt;a href="#" class="menu__item"&gt;listA__listB__listD__listC&lt;/a&gt;&lt;/li&gt;
+             &lt;/li&gt;
+            &lt;/ul&gt;
+           &lt;/div&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+       &lt;/div&gt;
+      &lt;/li&gt;
+     &lt;/ul&gt;
+    &lt;/div&gt;
+   &lt;/li&gt;
+   &lt;li class="menu__list"&gt;
+    &lt;div class="<span class="txt-caption txt-caption--R">toggleBtn</span>"&gt;&lt;a class="menu__item" href="#"&gt;listB&lt;/a&gt;&lt;/div&gt;
+    &lt;div class="<span class="txt-caption txt-caption--B">slideMenu</span>"&gt;
+     &lt;ul&gt;
+      &lt;li class="menu__list"&gt;&lt;a href="#" class="menu__item"&gt;listB__listA&lt;/a&gt;&lt;/li&gt;
+      &lt;li class="menu__list"&gt;&lt;a href="#" class="menu__item"&gt;listB__listB&lt;/a&gt;&lt;/li&gt;
+      &lt;li class="menu__list"&gt;&lt;a href="#" class="menu__item"&gt;listB__listC&lt;/a&gt;&lt;/li&gt;
+     &lt;/ul&gt;
+    &lt;/div&gt;
+   &lt;/li&gt;
+   &lt;li class="menu__list"&gt;&lt;a class="menu__item" href="#"&gt;listC&lt;/a&gt;&lt;/li&gt;
+   &lt;li class="menu__list"&gt;&lt;a class="menu__item" href="#"&gt;listD&lt;/a&gt;&lt;/li&gt;
+   &lt;li class="menu__list"&gt;&lt;a class="menu__item" href="#"&gt;listE&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+ &lt;/nav&gt;
+&lt;/header&gt;
+
+              </code>
+            </pre>
+					</dd>
+				</dl>
+        <dl class="list">
+          <dt class="heading heading--l3">CSSコード<small>CSS code</small></dt>
+          <dd>
+            <pre><code>
+.hamb.toggleBtn {
+	width: 32px;
+	height: 32px;
+	float: right;
+	position: relative;
+}
+
+.hamb.toggleBtn::after, .hamb.toggleBtn span::after, .hamb.toggleBtn span::before {
+	content: "";
+	display: block;
+	position: absolute;
+	right: 8px;
+	width: 16px;
+	height: 2px;
+	background-color: #fff;
+	-webkit-transition: .3s;
+	transition: .3s;
+}
+
+.hamb.toggleBtn::after {
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+
+.hamb.toggleBtn span::after {
+	top: 10px;
+}
+
+.hamb.toggleBtn span::before {
+	bottom: 10px;
+}
+
+.is-cross.hamb.toggleBtn::after {
+	opacity: 0;
+}
+
+.is-cross.hamb.toggleBtn span::after {
+	-webkit-transform: rotate(45deg);
+	        transform: rotate(45deg);
+					top: 15px;
+
+}
+
+.is-cross.hamb.toggleBtn span::before {
+	-webkit-transform: rotate(-45deg);
+	        transform: rotate(-45deg);
+					bottom: 15px;
+
+}
+
+.slideMenu {
+	display: none;
+}
+
+.toggleBtn:not(.hamb) {
+	position: relative;
+}
+
+.toggleBtn:not(.hamb)::after, .toggleBtn:not(.hamb)::before {
+	content: "";
+	display: block;
+	position: absolute;
+	background-color: #000;
+	top: 50%;
+	right: 15px;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+	-webkit-transform-origin: center;
+	transform-origin: center;
+}
+
+.toggleBtn:not(.hamb)::after {
+	width: 11px;
+	height: 1px;
+	right: 10px;
+}
+
+.toggleBtn:not(.hamb)::before {
+	width: 1px;
+	height: 11px;
+	-webkit-transition: .4s;
+	transition: .4s;
+}
+
+.is-cross.toggleBtn:not(.hamb)::before {
+	-webkit-transform: translateY(-50%) rotate(90deg);
+	transform: translateY(-50%) rotate(90deg);
+}
+            </code></pre>
+          </dd>
+        </dl>
+			</div>
+		</section>
+	</main>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script src="jquery.acd_nav.js"></script>
+</body>
+
+</html>
