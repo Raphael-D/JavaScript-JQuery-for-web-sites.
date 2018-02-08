@@ -5,37 +5,21 @@ window.addEventListener('DOMContentLoaded', function() {
     duration = 1,
     adjust = 80;
   /* === END options === */
-  var ua = navigator.userAgent.toLowerCase(),
-      domBody = document.body,
-      domHtml = document.documentElement,
-      scrElm = document.scrollingElement,
-      scrollVal;
-  // JavaScriptエンジンで分岐
-  if (ua.indexOf('msie') != -1) {
-    // edge.
-    scrollVal = domBody;
-  } else if (ua.indexOf('chrome') != -1) {
-    // Google Chrome.
-    scrollVal = scrElm;
-  } else if (ua.indexOf('firefox') != -1) {
-    // FireFox.
-    scrollVal = domHtml;
-  } else if (ua.indexOf('safari') != -1) {
-    // Safari.
-    scrollVal = domBody;
-  } else if (ua.indexOf('opera') != -1) {
-    // Opera.
-    scrollVal = domBody;
-  } else if (ua.indexOf('gecko') != -1) {
-    // Gecko.
-    scrollVal = domHtml;
-  } else if (ua.indexOf('ie') != -1) {
-    // IE.
-    scrollVal = domBody;
-  } else {
-    // others.
-    scrollVal = domBody;
+
+  var scrollVal = function() {
+    // JavaScriptエンジンで分岐
+    var ua = navigator.userAgent.toLowerCase(),
+        domBody = document.body,
+        domHtml = document.documentElement,
+        scrElm = document.scrollingElement;
+        return ua.indexOf('chrome') != -1 ? scrElm
+				: ua.indexOf('msie') != -1 ? domBody
+				: ua.indexOf('firefox') != -1 ? domHtml
+				: ua.indexOf('opera') != -1 ? domBody
+				: ua.indexOf('gecko') != -1 ? domHtml
+				: ua.indexOf('ie') != -1 ? domBody : domBody;
   }
+
   //easing関数作成
   function easeOut(time, duration) {
     return 1 - Math.pow(1 - (time / duration), 5); //5乗
@@ -65,7 +49,7 @@ window.addEventListener('DOMContentLoaded', function() {
     tgElem = document.getElementById(tgID),
     tgOffset = tgElem.getBoundingClientRect(),
     tgOffsetY = tgOffset.top;
-    smoothScroll(scrollVal, nowPos, tgOffsetY - adjust);
+    smoothScroll(scrollVal(), nowPos, tgOffsetY - adjust);
   }
   var a = document.getElementsByTagName('a'),
     elemArr = a.length,
