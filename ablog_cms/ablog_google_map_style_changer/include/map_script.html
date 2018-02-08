@@ -1,0 +1,249 @@
+
+<script>
+(function() {
+	var admin = '{id}',
+			front = '{utid}';
+	var customMap = function() {
+		var map_name = 'JS_custom-map',
+				adminMapId = map_name + admin,
+				frontMapId = map_name + front,
+				value_check = '{custom_map_link}',
+				value_style = '{custom_map_style}',
+				value_name = '{custom_map_name}',
+				value_lat = '{custom_map_lat}',
+				value_lng = '{custom_map_lng}',
+				value_zoom = '{custom_map_zoom}',
+				admin_lat = 'custom_map_lat' + admin,
+				admin_lng = 'custom_map_lng' + admin,
+				admin_zoom = 'custom_map_zoom' + admin,
+				value_marker = '{custom_map_icon@path}',
+				value_address = '{custom_map_address}[delnl]',
+				getMessage = (function() {/*
+				{custom_map_address}[escape|nl2br]
+				*/}).toString().match(/[^]*\/\*([^]*)\*\/\}$/)[1].replace(/\n|\r/g, ""),
+				value_address_escape = '{custom_map_address}[delnl]',
+				markerId = 'custom_map_icon',
+				adminMarkerId = markerId + admin,
+				frontMarkerId = markerId + front,
+				adminRadioName = 'custom_map_style' + admin,
+				srIpt = document.getElementById('map_search' + admin),
+				srBtn = document.getElementById('map_btn' + admin),
+				parentElem = document.getElementById('map' + admin),
+				style_case_glay = 'simple_glay',
+				style_case_color = 'simple_color',
+				style_case_night = 'simple_night',
+				style_glay = <!--#include file="/include/map/style/simple_glay.html"-->,
+				style_color = <!--#include file="/include/map/style/simple_color.html"-->,
+				style_night = <!--#include file="/include/map/style/simple_night.html"-->;
+
+
+		var getMyOptions = function (zoom_status, latlng_status) {
+			if (value_name) {
+				return {
+					zoom: zoom_status,
+					center: latlng_status,
+					scrollwheel: false,
+					mapTypeId: google.maps.MapTypeId.ROADMAP,
+					name: value_name,
+					mapTypeControlOptions: {
+						mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'style']
+					}
+				}
+			} else {
+				return {
+					zoom: zoom_status,
+					center: latlng_status,
+					scrollwheel: false,
+					mapTypeId: google.maps.MapTypeId.ROADMAP,
+					name: 'google map',
+					mapTypeControlOptions: {
+						mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'style']
+					}
+				}
+			}
+		}
+
+
+		var getMarker = function(targetMap, marker, marker_lat, marker_lng) {
+			if (value_marker) {
+				var marker_sizeX = marker.naturalWidth / 2,
+						marker_sizeY = marker.naturalHeight / 2,
+						marker_size = new google.maps.Size(marker_sizeX, marker_sizeY);
+				var markerOptions = new google.maps.Marker({
+					position: new google.maps.LatLng(marker_lat, marker_lng),
+					map: targetMap,
+					icon: {
+						url: "%{ARCHIVES_DIR}" + value_marker,
+						scaledSize: marker_size
+					}
+				});
+
+				if(value_address) {
+					var getMarkerInfo = function(targetMap) {
+						var info = new google.maps.InfoWindow({
+							content: getMessage
+						});
+						google.maps.event.addListener(markerOptions, 'mouseover', function() {
+							info.open(targetMap, markerOptions);
+						});
+					}
+					getMarkerInfo(targetMap);
+				}
+			} else {
+				var markerOptions = new google.maps.Marker({
+					position: new google.maps.LatLng(marker_lat, marker_lng),
+					map: targetMap
+				});
+				if (value_address) {
+					 var getMarkerInfo = function(targetMap) {
+						var info = new google.maps.InfoWindow({
+							content: getMessage
+						});
+						google.maps.event.addListener(markerOptions, 'mouseover', function() {
+							info.open(targetMap, markerOptions);
+						});
+					}
+					getMarkerInfo(targetMap);
+				}
+			}
+		}
+
+
+
+		var setOptions = function(map, state, mapstyle, options) {
+			var mapType = new google.maps.StyledMapType(mapstyle, options);
+			map.mapTypes.set('style', mapType);
+			map.setMapTypeId('style');
+			if(state == admin) {
+				map.addListener('zoom_changed', function() {
+					document.getElementsByName(admin_zoom)[0].value = map.getZoom();
+				});
+			}
+		}
+
+		var setMapStyle = function(map, state, options) {
+			if(state == front) {
+				switch(value_style) {
+					case style_case_glay:
+					var mapstyle = style_glay;
+					break;
+					case style_case_color:
+					var mapstyle = style_color;
+					break;
+					case style_case_night:
+					var mapstyle = style_night;
+					default:
+					break;
+				}
+				setOptions(map, state, mapstyle, options);
+			} else {
+				var radio = document.getElementsByName(adminRadioName);
+				for(var i = 0; i < radio.length; i++) {
+					if(radio[i].checked) {
+						if (radio[i].value === style_case_glay) {
+							var mapstyle = style_glay;
+							setOptions(map, admin, mapstyle, options);
+						} else if (radio[i].value === style_case_color) {
+							var mapstyle = style_color;
+							setOptions(map, admin, mapstyle, options);
+						} else if (radio[i].value === style_case_night) {
+							var mapstyle = style_night;
+							setOptions(map, admin, mapstyle, options);
+						}
+					}
+					radio[i].onchange = function() {
+						if(this.value === style_case_glay) {
+							var mapstyle = style_glay;
+							setOptions(map, admin, mapstyle, options);
+							rendarMap();
+						} else if (this.value === style_case_color) {
+							var mapstyle = style_color;
+							setOptions(map, admin, mapstyle, options);
+							randarMap();
+						} else if (this.value === style_case_night) {
+							var mapstyle = style_night;
+							setOptions(map, admin, mapstyle, options);
+							rendarMap();
+						}
+					}
+				}
+			}
+		}
+		var setLinkBtn = function(mapID, value_lat, value_lng) {
+			if(value_check) {
+				var mapUrl = 'https://maps.google.co.jp/maps?q=' + value_lat + ',' + value_lng;
+				var linkBtn = '<a class="btn btn--map-link btn--grid btn--wide entry-marker hover" target="_blank" href="' + mapUrl + '">詳細な地図はこちら</a>';
+				var parentNode = document.getElementById(mapID);
+				parentNode.insertAdjacentHTML('afterend', linkBtn);
+			}
+		}
+
+				if(front) {
+					console.log('front');
+					var rendarMap = function() {
+						var myLatLng = new google.maps.LatLng(value_lat, value_lng);
+						value_zoom = parseInt(value_zoom);
+						getMyOptions(value_zoom, myLatLng);
+						var map = new google.maps.Map(document.getElementById(frontMapId), getMyOptions(value_zoom, myLatLng));
+						var marker = document.getElementById(frontMarkerId);
+						getMarker(map, marker, value_lat, value_lng);
+						setMapStyle(map, front, getMyOptions(value_zoom, myLatLng));
+						setLinkBtn(frontMapId, value_lat, value_lng);
+					}
+					rendarMap();
+
+
+
+
+				} else if (admin) {
+					console.log('admin');
+					var staMap = parentElem.getElementsByTagName('img')[0];
+							if(staMap) {
+								staMap.click();
+							}
+					var rendarMap = function() {
+							var getMap = parentElem.getElementsByClassName(map_name)[0];
+							var getCanvas = function() {
+								if (getMap == undefined) {
+									setTimeout(rendarMap, 1000);
+								} else {
+									return getMap.id = adminMapId;
+								}
+							}
+							getCanvas();
+							var nowLat = document.getElementsByName(admin_lat)[0].value,
+									nowLng = document.getElementsByName(admin_lng)[0].value,
+									nowZoom = document.getElementsByName(admin_zoom)[0].value,
+									myLatLng = new google.maps.LatLng(nowLat, nowLng),
+									parse_nowZoom = parseInt(nowZoom);
+									getMyOptions(parse_nowZoom, myLatLng);
+							var map = new google.maps.Map(document.getElementById(adminMapId), getMyOptions(parse_nowZoom, myLatLng));
+							var marker = document.getElementById(adminMarkerId);
+							getMarker(map, marker, nowLat, nowLng);
+							setMapStyle(map, admin, getMyOptions(parse_nowZoom, myLatLng));
+					}
+					rendarMap();
+					srBtn.addEventListener('click', function() {
+						setTimeout(rendarMap, 100);
+					});
+					srIpt.addEventListener('keydown', function() {
+						if(window.event.keyCode == 13) {
+							srBtn.click(setTimeout(rendarMap, 1000));
+						}
+					});
+				}
+	}
+
+
+	if(admin) {
+		ACMS.addListener('acmsAddUnit', function() {
+			setTimeout(customMap, 500);
+		});
+	}
+
+	window.addEventListener('load', customMap);
+
+})();
+
+
+</script>

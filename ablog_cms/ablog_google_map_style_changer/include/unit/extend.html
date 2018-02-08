@@ -1,0 +1,10 @@
+<!-- 出力側 /include/unit/extend.html -->
+<!-- BEGIN unit#custom_map -->
+<div class="column-map-{align}{display_size_class}"{display_size}[raw]>
+<div class="map" id="JS_custom-map{utid}" style="height:300px;"></div>
+<!-- BEGIN_IF [{custom_map_icon@path}/nem] -->
+<img src="%{ARCHIVES_DIR}{custom_map_icon@path}" alt="" id="custom_map_icon{utid}" style="display:none;">
+<!-- END_IF -->
+<!--#include file="/include/map/map_script.html"-->
+</div>
+<!-- END unit#custom_map -->
