@@ -14,6 +14,7 @@ window.addEventListener('DOMContentLoaded', function() {
         scrElm = document.scrollingElement;
         return ua.indexOf('chrome') != -1 ? scrElm
 				: ua.indexOf('msie') != -1 ? domBody
+        : ua.indexOf('edge') != -1 ? domBody
 				: ua.indexOf('firefox') != -1 ? domHtml
 				: ua.indexOf('opera') != -1 ? domBody
 				: ua.indexOf('gecko') != -1 ? domHtml
