@@ -8,17 +8,20 @@ window.addEventListener('DOMContentLoaded', function() {
 
   var scrollVal = function() {
     // JavaScriptエンジンで分岐
-    var ua = navigator.userAgent.toLowerCase(),
-        domBody = document.body,
-        domHtml = document.documentElement,
-        scrElm = document.scrollingElement;
-        return ua.indexOf('chrome') != -1 ? scrElm
-				: ua.indexOf('msie') != -1 ? domBody
-        : ua.indexOf('edge') != -1 ? domBody
-				: ua.indexOf('firefox') != -1 ? domHtml
-				: ua.indexOf('opera') != -1 ? domBody
-				: ua.indexOf('gecko') != -1 ? domHtml
-				: ua.indexOf('ie') != -1 ? domBody : domBody;
+    var ua = navigator.userAgent.toLowerCase();
+    var dom = {
+      body: document.body,
+      elem: document.documentElement,
+      scrl: document.scrollingElement
+    }
+    return ua.indexOf('chrome') != -1 ? dom.scrl
+    : ua.indexOf('safari') != -1 ? dom.body
+    : ua.indexOf('edge') != -1 ? dom.body
+    : ua.indexOf('msie') != -1 ? dom.body
+    : ua.indexOf('firefox') != -1 ? dom.html
+    : ua.indexOf('opera') != -1 ? dom.body
+    : ua.indexOf('gecko') != -1 ? dom.html
+    : ua.indexOf('ie') != -1 ? dom.body : dom.body;
   }
 
   //easing関数作成
