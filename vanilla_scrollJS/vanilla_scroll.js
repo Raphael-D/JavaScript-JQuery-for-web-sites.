@@ -18,9 +18,9 @@ window.addEventListener('DOMContentLoaded', function() {
     : ua.indexOf('safari') != -1 ? dom.body
     : ua.indexOf('edge') != -1 ? dom.body
     : ua.indexOf('msie') != -1 ? dom.body
-    : ua.indexOf('firefox') != -1 ? dom.html
+    : ua.indexOf('firefox') != -1 ? dom.elem
     : ua.indexOf('opera') != -1 ? dom.body
-    : ua.indexOf('gecko') != -1 ? dom.html
+    : ua.indexOf('gecko') != -1 ? dom.elem
     : ua.indexOf('ie') != -1 ? dom.body : dom.body;
   }
 
