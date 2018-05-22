@@ -26,7 +26,6 @@ var vanillax = function(elem, direction, calc, startPos, amount) {
 			if (calc == '+') {
 				return window.addEventListener('scroll', function() {
 					document.getElementById(elem).style.top = (startPos + (scrollVal() * amount)) + unit;
-					console.log(elem);
 				})
 			} else {
 				return window.addEventListener('scroll', function() {
