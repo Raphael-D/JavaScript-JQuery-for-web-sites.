@@ -1,13 +1,8 @@
 window.addEventListener('DOMContentLoaded', function() {
-	var getElem = function(elem) {
+	var target = function(elem) {
 		return document.getElementById(elem);
 	}
 	var unit = 'px';
-	var images = {
-		service: getElem('service-img'),
-		service2: getElem('service-img2'),
-		news: getElem('news-img')
-	}
 	var getScrollPos = function() {
 		// JavaScriptエンジンで分岐
 		var ua = navigator.userAgent.toLowerCase();
@@ -32,29 +27,43 @@ window.addEventListener('DOMContentLoaded', function() {
 	var pallaxImage = function(elem, direction, calc, startPos, amount) {
 		if (direction == 'top') {
 			if (calc == '+') {
-				elem.style.top = (startPos + (scrollVal() * amount)) + unit;
+				target(elem).style.top = (startPos + (scrollVal() * amount)) + unit;
 			} else {
-				elem.style.top = (startPos - (scrollVal() * amount)) + unit;
+				target(elem).style.top = (startPos - (scrollVal() * amount)) + unit;
 			}
 		}
 		if (direction == 'bottom') {
 			if (calc == '+') {
-				elem.style.bottom = (startPos + (scrollVal() * amount)) + unit;
+				target(elem).style.bottom = (startPos + (scrollVal() * amount)) + unit;
 			} else {
-				elem.style.bottom = (startPos - (scrollVal() * amount)) + unit;
+				target(elem).style.bottom = (startPos - (scrollVal() * amount)) + unit;
+			}
+		}
+		if (direction == 'right') {
+			if (calc == '+') {
+				target(elem).style.right = (startPos + (scrollVal() * amount)) + unit;
+			} else {
+				target(elem).style.right = (startPos - (scrollVal() * amount)) + unit;
+			}
+		}
+		if (direction == 'left') {
+			if (calc == '+') {
+				target(elem).style.left = (startPos + (scrollVal() * amount)) + unit;
+			} else {
+				target(elem).style.left = (startPos - (scrollVal() * amount)) + unit;
 			}
 		}
 	}
 
 	window.addEventListener('scroll', function() {
 
-		pallaxImage(images.service, 'top', '+', -1000, .4);
+		pallaxImage('service-img', 'top', '+', -1000, .4);
 		// 開始位置top-20%でスクロールに応じて20%遅らせる状態
 
-		pallaxImage(images.service2, 'bottom', '-', 400, .3);
+		pallaxImage('service-img2', 'bottom', '-', 400, .3);
 		// 開始位置bottom10%でスクロールに応じて20%遅らせる状態
 
-		pallaxImage(images.news, 'bottom', '-', 400, .3);
+		pallaxImage('news-img', 'bottom', '-', 400, .3);
 		// 開始位置top-90%でスクロールに応じて30%遅らせる状態
 
 	});
