@@ -6,7 +6,7 @@
 
 ## 使用例
 ```
-<sctipt src="vanillax.js"></script>
+<sctipt src="vanillax_class.js"></script>
 <script>
 	vanillax('service-img', 'top', '+', -1000, .4);
 	// 上から下へ開始位置1000px上から、スクロールに応じて60%遅らせる状態
@@ -21,8 +21,11 @@
 	proto_parallax.js
 	- プロトタイプのパララックスJavaScriptです。自分で改造したい方や、ファイルを分けてイベントを記述したい人へ。
 
-	vanillax.js
-	- こちらが正規版扱いです。
+	vanillax_id.js
+	- ターゲットの要素をIDで指定するタイプです。
+
+	vanillax_class.js
+	- ターゲットの要素をCLASSで指定するタイプです。
 
 
 
@@ -38,7 +41,7 @@
 
 = 引数について ==========================
 
-	引数A：ターゲットのID。クォーテーションで囲んで指定してください。
+	引数A：ターゲットのIDまたはCLASS。クォーテーションで囲んで指定してください。
 
 	引数B：動く方向（'top', 'bottom', 'left', 'right'）
 
@@ -69,7 +72,7 @@
 	vanillax('service-img', 'left', '+', -1000, .4);
 
 
-  
+
 = ほか注意点 ==========================
 
 	パララックスする要素にposition: absolute
