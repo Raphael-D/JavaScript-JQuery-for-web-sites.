@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+	<div id="gmap" style="width: 300px; height: 300px;"></div>
+	<div id="gmap2" style="width: 300px; height: 300px;"></div>
+	<div id="gmap3" style="width: 300px; height: 300px;"></div>
+
+</body>
+<script src="https://maps.googleapis.com/maps/api/js?key={YOUR API KEY}"></script>
+<script src="map.js"></script>
+<script src="common.js"></script>
+<script>
+	getGoogleMap("gmap3", 42.6976701, -76.2598667, "Other place", 15, "{path to your map marker}", {marker size width}, {marker size height});
+</script>
+</html>
